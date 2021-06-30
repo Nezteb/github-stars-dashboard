@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { format } from 'date-fns'
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
 import {
@@ -58,10 +57,6 @@ const getOneStar = async (githubToken: string, fullStar: any) => {
     let star = pick(fullStar, starsKeys)
 
     star.fullname = `${star.repo.owner.login}/${star.repo.name}`
-
-    const date = new Date(star.starred_at)
-    const starredAtStr = format(date, "MMMM do yyyy")
-    star.starred_at_str = starredAtStr
 
     // Topics requires a ton of API calls, so maybe don't...
     if (!skipTopics) {
