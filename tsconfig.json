@@ -16,11 +16,13 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": false,
+    "outDir": "dist",
     "jsx": "react"
   },
   "include": [
-    "./src"
+    "./src",
+    "index.html"
   ],
   "exclude": [
     "node_modules"

@@ -4,6 +4,7 @@ import babel from 'vite-babel-plugin'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/github-stars-dashboard/",
   plugins: [
     reactRefresh(),
     babel()

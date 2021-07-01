@@ -1,3 +1,6 @@
+// @ts-nocheck
+// TODO: REMOVE THIS NO CHECK AND ACTUALLY USE TYPES...
+
 import React, { useMemo, useState } from 'react'
 import {
   useBlockLayout,
@@ -78,8 +81,8 @@ function App() {
       fuzzyText: fuzzyTextFilterFn,
       // Or, override the default text filter to use
       // "startWith"
-      text: (rows, id, filterValue) => {
-        return rows.filter(row => {
+      text: (rows: any, id: any, filterValue: any) => {
+        return rows.filter((row: any) => {
           const rowValue = row.values[id]
           return rowValue !== undefined
             ? String(rowValue)
@@ -100,7 +103,7 @@ function App() {
     []
   )
 
-  const tableInstance = useTable(
+  const tableInstance: any = useTable(
     {
       columns,
       data,
@@ -190,11 +193,11 @@ function App() {
         <table {...getTableProps()} className="table">
           <thead>
             {// Loop over the header rows
-              headerGroups.map(headerGroup => (
+              headerGroups.map((headerGroup: any) => (
                 // Apply the header row props
                 <tr {...headerGroup.getHeaderGroupProps()} className="tr">
                   {// Loop over the headers in each row
-                    headerGroup.headers.map(column => (
+                    headerGroup.headers.map((column: any) => (
                       // Apply the header cell props
                       <th {...column.getHeaderProps(column.getSortByToggleProps())} className="th">
                         {// Render the header
@@ -234,14 +237,14 @@ function App() {
           {/* Apply the table body props */}
           <tbody {...getTableBodyProps()}>
             {// Loop over the table rows
-              page.map((row) => {
+              page.map((row: any) => {
                 // Prepare the row for display
                 prepareRow(row)
                 return (
                   // Apply the row props
                   <tr {...row.getRowProps()} className="tr">
                     {// Loop over the rows cells
-                      row.cells.map(cell => {
+                      row.cells.map((cell: any) => {
                         // Apply the cell props
                         return (
                           <td {...cell.getCellProps()} className="td">
@@ -260,7 +263,7 @@ function App() {
 }
 
 // Define a custom filter filter function!
-function filterGreaterThan(rows, id, filterValue) {
+function filterGreaterThan(rows: any, id: any, filterValue: any) {
   return rows.filter(row => {
     const rowValue = row.values[id]
     return rowValue >= filterValue
@@ -327,7 +330,7 @@ function SelectColumnFilter({
   // using the preFilteredRows
   const options = React.useMemo(() => {
     const options = new Set()
-    preFilteredRows.forEach(row => {
+    preFilteredRows.forEach((row: any) => {
       options.add(row.values[id])
     })
     return [...options.values()]
@@ -356,11 +359,11 @@ function SelectColumnFilter({
 // ones that have values between the two
 function NumberRangeColumnFilter({
   column: { filterValue = [], preFilteredRows, setFilter, id },
-}) {
+}: { column: any }) {
   const [min, max] = React.useMemo(() => {
     let min = preFilteredRows.length ? preFilteredRows[0].values[id] : 0
     let max = preFilteredRows.length ? preFilteredRows[0].values[id] : 0
-    preFilteredRows.forEach(row => {
+    preFilteredRows.forEach((row: any) => {
       min = Math.min(row.values[id], min)
       max = Math.max(row.values[id], max)
     })
@@ -404,12 +407,12 @@ function NumberRangeColumnFilter({
   )
 }
 
-function fuzzyTextFilterFn(rows, id, filterValue) {
+function fuzzyTextFilterFn(rows: any, id: any, filterValue: any) {
   return matchSorter(rows, filterValue, { keys: [row => row.values[id]] })
 }
 
 // Let the table remove the filter if the string is empty
-fuzzyTextFilterFn.autoRemove = val => !val
+fuzzyTextFilterFn.autoRemove = (val: any) => !val
 
 const Styles = styled.div`
   padding: 1rem;
