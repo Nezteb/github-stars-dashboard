@@ -1,3 +1,7 @@
+# GitHub Stars Dashboard
+
+https://user-images.githubusercontent.com/3588798/124159675-083f9680-da61-11eb-85aa-b5b72975f11a.mp4
+
 _This repo is a mess, but it works!_
 
 # About
