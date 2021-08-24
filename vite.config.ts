@@ -8,5 +8,8 @@ export default defineConfig({
   plugins: [
     reactRefresh(),
     babel()
-  ]
+  ],
+  build: {
+    sourcemap: true,
+  },
 })

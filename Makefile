@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := run
+≥÷.DEFAULT_GOAL := run
 
 ### Docker Development Commands
 
@@ -10,9 +10,13 @@ run: build
 build:
 	yarn
 
+.PHONY: deploy
+deploy:
+	yarn deploy
+
 .PHONY: json
 json:
 	cd scripts && \
 		yarn && \
-		tsc && \
-		node -r source-map-support/register get_stars_json.js
+		npx tsc && \
+		node -r source-map-support/register dist/get_stars_json.js

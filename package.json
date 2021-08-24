@@ -3,7 +3,7 @@
   "homepage": "http://nezteb.github.io/github-stars-dashboard/",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "npx tsc && vite build",
     "serve": "vite preview",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d dist"
