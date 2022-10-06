@@ -1,6 +1,6 @@
 import axios from 'axios'
-import pick from 'lodash/pick';
-import omit from 'lodash/omit';
+import pick from 'lodash/pick.js';
+import omit from 'lodash/omit.js';
 import {
     readFile as readFileCallback,
     writeFileSync
