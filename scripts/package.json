@@ -3,6 +3,7 @@
     "type": "module",
     "dependencies": {
         "axios": "^0.21.1",
+        "csv-stringify": "^6.2.0",
         "lodash": "^4.17.21"
     },
     "devDependencies": {

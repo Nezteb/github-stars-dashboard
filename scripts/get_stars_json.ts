@@ -7,10 +7,12 @@ import {
 } from 'fs';
 import { promisify } from 'util';
 const readFile = promisify(readFileCallback);
+import { stringify } from 'csv-stringify/sync';
 
 const skipTopics = false
 
-const fileName = "stars.json"
+const jsonFileName = "stars.json"
+const csvFileName = "stars.csv"
 
 const starsKeys = [
     "starred_at",
@@ -89,9 +91,9 @@ const sort_by_starred_at = (a: any, b: any) => {
     const githubToken = process.env.GITHUB_TOKEN!
     let page = 1
     let total = 0
-    writeFileSync(fileName, JSON.stringify([], null, 2), 'utf-8');
+    writeFileSync(jsonFileName, JSON.stringify([], null, 2), 'utf-8');
 
-    while (total < 2000) {
+    while (true) {
         console.log(`Getting stars page: ${page} (total: ${total})`)
 
         let starsListForPage = []
@@ -103,6 +105,11 @@ const sort_by_starred_at = (a: any, b: any) => {
             break;
         }
 
+        if(starsListForPage.length < 1) {
+            console.log(`No more pages after page ${page} (total: ${total})`)
+            break
+        }
+
         const allStarsForPage = await Promise.all(starsListForPage.map((star: any) => {
             return getOneStar(githubToken, star)
         }))
@@ -111,19 +118,27 @@ const sort_by_starred_at = (a: any, b: any) => {
         if (allStarsForPage === undefined || allStarsForPage.length < 1) {
             break
         }
-        const fileContent = await readFile(fileName, 'utf-8')
+        const fileContent = await readFile(jsonFileName, 'utf-8')
         const fileJson = JSON.parse(fileContent);
         fileJson.push(...allStarsForPage)
-        writeFileSync(fileName, JSON.stringify(fileJson, null, 2), 'utf-8')
+        writeFileSync(jsonFileName, JSON.stringify(fileJson, null, 2), 'utf-8')
         page++
 
         console.log("Sleeping for 5 seconds to avoid triggering GitHub abuse detection...")
         await delay(5000);
     }
 
+
     console.log("Sorting...")
-    const fileContent = await readFile(fileName, 'utf-8')
+    const fileContent = await readFile(jsonFileName, 'utf-8')
     const fileJson = JSON.parse(fileContent);
     fileJson.sort(sort_by_starred_at);
-    writeFileSync(fileName, JSON.stringify(fileJson, null, 2), 'utf-8')
+
+    const jsonString = JSON.stringify(fileJson, null, 2)
+
+    console.log("Writing JSON file...")
+    writeFileSync(jsonFileName, jsonString, 'utf-8')
+
+    console.log("Writing CSV file...")
+    writeFileSync(csvFileName, stringify(fileJson, { header: true }), 'utf-8')
 })();
