@@ -124,8 +124,8 @@ const sort_by_starred_at = (a: any, b: any) => {
         writeFileSync(jsonFileName, JSON.stringify(fileJson, null, 2), 'utf-8')
         page++
 
-        console.log("Sleeping for 5 seconds to avoid triggering GitHub abuse detection...")
-        await delay(5000);
+        console.log("Sleeping for 10 seconds to avoid triggering GitHub abuse detection...")
+        await delay(10000);
     }
 
 
