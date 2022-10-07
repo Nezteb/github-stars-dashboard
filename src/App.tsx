@@ -145,7 +145,7 @@ function App() {
         Pagination can be built however you'd like. 
         This is just a very basic UI implementation:
       */}
-      <span>Also on <a href="https://airtable.com/shr3LkqGTxaLc4aMw">AirTable</a></span>
+      <span>Also on <a href="https://docs.google.com/spreadsheets/d/13_lRO0-ehvc4PC9jQe9iaoQVaMYVW8k98pJ8Oyy-pz0">Google Sheets</a></span>
       <div className="pagination">
         <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
           {'<<'}
