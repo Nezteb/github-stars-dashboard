@@ -8,7 +8,7 @@ run: build
 
 .PHONY: build
 build:
-	yarn
+	yarn && yarn build
 
 .PHONY: deploy
 deploy:
